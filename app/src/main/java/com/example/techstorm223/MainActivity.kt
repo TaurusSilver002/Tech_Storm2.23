@@ -279,25 +279,6 @@ fun SponcerItem(data : SponcersData){
     Spacer(modifier = Modifier.size(5.dp))
 
 }
-/*@Composable
-fun SponcersScreen(){
-    Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        Text(
-            text = "Results Screen",
-            fontWeight = FontWeight.Bold,
-            color = Color.Black,
-            fontSize = 30.sp,
-            textAlign = TextAlign.Center
-        )
-
-    }
-}*/
 
 @Composable
 fun ShareScreen(){
@@ -450,55 +431,6 @@ fun PhotoItem(data : GalleryData){
     }
 
 }
-/*Card(
-
-) {
-    val imageModifier = Modifier
-        .size(250.dp)
-
-    Image(painter = painterResource(id = R.drawable.image_1), contentDescription = null, modifier =imageModifier)
-    Column(modifier = Modifier.padding(5.dp)) {
-        Text("Maaitrayo Das", fontWeight = FontWeight.W700)
-        Text("+0 12345678")
-        Text("XYZ city", fontWeight = FontWeight.W300)
-
-    }
-}
-
-
-Card(
-
-) {
-    val imageModifier = Modifier
-        .size(250.dp)
-    Image(painter = painterResource(id = R.drawable.image_1), contentDescription = null,modifier =imageModifier)
-    Column(modifier = Modifier.padding(5.dp)) {
-        Text("Dipnarayan Sen", fontWeight = FontWeight.W700)
-        Text("+0 12345678")
-        Text("XYZ city", fontWeight = FontWeight.W300)
-
-    }
-}
-Card(
-
-) {
-    val imageModifier = Modifier
-        .size(250.dp)
-    Image(painter = painterResource(id = R.drawable.image_1), contentDescription = null,modifier =imageModifier)
-    Column(modifier = Modifier.padding(5.dp)) {
-        Text("Anushka Mukherjee", fontWeight = FontWeight.W700)
-        Text("+0 12345678")
-        Text("XYZ city", fontWeight = FontWeight.W300)
-
-    }
-    }
-
-}
-
-}
-
-*/
-
 
 fun getJsonDataFromAsset(context: Context, data: String):String {
     return context.assets.open(data).bufferedReader().use { it.readText() }
@@ -618,239 +550,78 @@ fun DataItem(data : EventDomainData){
     Spacer(modifier = Modifier.size(5.dp))
 
 }
-        /*Card(
 
-        ) {
-            val imageModifier = Modifier
-                .size(250.dp)
-
-            Image(painter = painterResource(id = R.drawable.image_1), contentDescription = null, modifier =imageModifier)
-            Column(modifier = Modifier.padding(5.dp)) {
-                Text("Maaitrayo Das", fontWeight = FontWeight.W700)
-                Text("+0 12345678")
-                Text("XYZ city", fontWeight = FontWeight.W300)
-
-            }
-        }
-
-
-        Card(
-
-        ) {
-            val imageModifier = Modifier
-                .size(250.dp)
-            Image(painter = painterResource(id = R.drawable.image_1), contentDescription = null,modifier =imageModifier)
-            Column(modifier = Modifier.padding(5.dp)) {
-                Text("Dipnarayan Sen", fontWeight = FontWeight.W700)
-                Text("+0 12345678")
-                Text("XYZ city", fontWeight = FontWeight.W300)
-
-            }
-        }
-        Card(
-
-        ) {
-            val imageModifier = Modifier
-                .size(250.dp)
-            Image(painter = painterResource(id = R.drawable.image_1), contentDescription = null,modifier =imageModifier)
-            Column(modifier = Modifier.padding(5.dp)) {
-                Text("Anushka Mukherjee", fontWeight = FontWeight.W700)
-                Text("+0 12345678")
-                Text("XYZ city", fontWeight = FontWeight.W300)
-
-            }
-            }
-
-        }
-
-}
-
-*/
 
 
 
 
 //----------------------------------------------------------HOME SCREEN------------------------------------------------------------
+
+data class homedataobject(
+    val imgUri: Int,
+    val route : String,
+    val text : String
+)
+
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen(navController: NavHostController){
+fun HomeScreen(navController: NavHostController) {
+    val homedata = listOf(
+        homedataobject(R.drawable.image_1, NavigationItem.BrainTeasersList.route, "Brain Teasers"),
+        homedataobject(R.drawable.image_2, NavigationItem.IdeaPresentation.route, "Idea Presentation"),
+        homedataobject(R.drawable.image_3, NavigationItem.Rovers_List.route, "Rovers"),
+        homedataobject(R.drawable.image_4, NavigationItem.GamesList.route, "Games"),
+        homedataobject(R.drawable.image_5, NavigationItem.CreativeList.route, "Creative"),
+    )
+    LazyVerticalGrid(cells = GridCells.Fixed(1)) {
 
-    LazyColumn(
-        modifier = Modifier.padding(10.dp)
-    ) {
-        item{
-            Box(
-                modifier = Modifier
+        items(homedata) { data ->
+            HomeItem(data,navController)
 
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.BrainTeasersList.route)
-                    }
-            ) {
-                Image(modifier = Modifier.clip(RoundedCornerShape(30.dp)),
-                    painter = painterResource(
-                        id = R.drawable.image_1
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "Brain Teasers",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-            Spacer(Modifier.size(20.dp))
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.IdeaPresentation.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_2
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "Idea Presentation",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-
-            Spacer(Modifier.size(20.dp))
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.Rovers_List.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_3
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "Rovers",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-
-            Spacer(Modifier.size(20.dp))
-
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.GamesList.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_4
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "Games",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-
-            Spacer(Modifier.size(20.dp))
-
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.CreativeList.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_5
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "Creative",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
         }
     }
 }
 
+@Composable
+fun HomeItem(data : homedataobject,navController: NavHostController) {
+Card(
+    modifier = Modifier.padding(5.dp,5.dp,5.dp,5.dp)
+) {
+    Box(
+        modifier = Modifier
+
+            .clip(RoundedCornerShape(30.dp))
+            .fillMaxWidth()
+            .background(Color.Red)
+            .clickable {
+                navController.navigate(data.route)
+            }
+    ) {
+        Image(modifier = Modifier.clip(RoundedCornerShape(30.dp)),
+            painter = painterResource(
+                id = data.imgUri
+            ), contentDescription = "Null"
+        )
+        Box(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .background(color = Color.Gray)
+                .fillMaxWidth()
+        ) {
+
+            Text(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                text = data.text,
+                fontSize = 26.sp
+
+            )
+            Spacer(Modifier.size(20.dp))
+
+        }
+    }
+    Spacer(Modifier.size(20.dp))
+}
+}
 
 
 
@@ -958,146 +729,23 @@ fun Technomania(navController: NavHostController){
         }
     }
 }
+
+
+
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun BrainTeasersList(navController: NavHostController){
-    LazyColumn(
-        modifier = Modifier.padding(10.dp)
-    ) {
-        item{
-            Box(
-                modifier = Modifier
+fun BrainTeasersList(navController: NavHostController) {
+    val homedata = listOf(
+        homedataobject(R.drawable.image_1, NavigationItem.Appmania.route, "APP MANIA"),
+        homedataobject(R.drawable.image_2, NavigationItem.Fantac.route, "FANTA-C"),
+        homedataobject(R.drawable.image_3, NavigationItem.Omegatrix.route, "OMEGATRIX"),
+        homedataobject(R.drawable.image_4, NavigationItem.Technomania.route, "TECHNOMANIA"),
 
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.Appmania.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_1
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
+        )
+    LazyVerticalGrid(cells = GridCells.Fixed(1)) {
 
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "APP MANIA",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-            Spacer(Modifier.size(20.dp))
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.Fantac.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_2
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "FANTA - C",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-
-            Spacer(Modifier.size(20.dp))
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.Omegatrix.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_3
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "OMEGATRIX",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-
-            Spacer(Modifier.size(20.dp))
-
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.Technomania.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_4
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "TECHNOMANIA",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
+        items(homedata) { data ->
+            HomeItem(data, navController)
 
         }
     }
@@ -1315,256 +963,27 @@ fun RoCarrom(navController: NavHostController){
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun RoversList(navController: NavHostController){
+    val homedata = listOf(
+        homedataobject(R.drawable.image_1, NavigationItem.RoCombat.route, "RO-COMBAT"),
+        homedataobject(R.drawable.image_2, NavigationItem.RoNavigator.route, "RO-NAVIGATOR"),
+        homedataobject(R.drawable.image_3, NavigationItem.RoPicker.route, "RO-PICKER"),
+        homedataobject(R.drawable.image_4, NavigationItem.RoSoccer.route, "RO-SOCCER"),
+        homedataobject(R.drawable.image_5, NavigationItem.RoTerrance.route, "RO-TERRANCE"),
+        homedataobject(R.drawable.image_1, NavigationItem.RoTerrance.route, "RO-WINGS"),
+        homedataobject(R.drawable.image_2, NavigationItem.RoCarrom.route, "RO-CARROM"),
 
-    LazyColumn(
-        modifier = Modifier.padding(10.dp)
-    ) {
-        item{
-            Box(
-                modifier = Modifier
+        )
+    LazyVerticalGrid(cells = GridCells.Fixed(1)) {
 
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.RoCombat.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_1
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "Ro-Combat",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-
-            Spacer(Modifier.size(20.dp))
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.RoNavigator.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_2
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "Ro-Navigator",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-
-            Spacer(Modifier.size(20.dp))
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.RoPicker.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_1
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "Ro-Picker",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-
-            Spacer(Modifier.size(20.dp))
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.RoSoccer.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_5
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "Ro-Soccer",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-
-            Spacer(Modifier.size(20.dp))
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.RoTerrance.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_3
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "Ro-Terrance",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-
-            Spacer(Modifier.size(20.dp))
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.RoWings.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_4
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "Ro-Wings",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-
-            Spacer(Modifier.size(20.dp))
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.RoCarrom.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_5
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "Ro-Carrom",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
+        items(homedata) { data ->
+            HomeItem(data, navController)
 
         }
     }
-
 }
-
-
 
 
 //--------------------------------------------------------Games-------------------------------------------------------
@@ -1671,152 +1090,22 @@ fun Fifa(navController: NavHostController){
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun GamesList(navController: NavHostController){
+    val homedata = listOf(
+        homedataobject(R.drawable.image_1, NavigationItem.NeedForSpeed.route, "NEED FOR SPEED"),
+        homedataobject(R.drawable.image_2, NavigationItem.Knet.route, "KNET"),
+        homedataobject(R.drawable.image_3, NavigationItem.Coc.route, "CLASH OF CLANS"),
+        homedataobject(R.drawable.image_4, NavigationItem.Fifa.route, "FIFA"),
+        )
+    LazyVerticalGrid(cells = GridCells.Fixed(1)) {
 
-    LazyColumn(
-        modifier = Modifier.padding(10.dp)
-    ) {
-        item{
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.NeedForSpeed.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_1
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "NEED FOR SPEED",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-
-            Spacer(Modifier.size(20.dp))
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.Knet.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_2
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "KNET",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-
-            Spacer(Modifier.size(20.dp))
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.Coc.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_1
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "CLASH OF CLANS",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-
-            Spacer(Modifier.size(20.dp))
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.Fifa.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_5
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "FIFA",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-
-
-            }
+        items(homedata) { data ->
+            HomeItem(data, navController)
 
         }
+    }
 }
 
 
@@ -1897,119 +1186,24 @@ fun PassionWithReels(navController: NavHostController){
         }
     }
 }
+
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CreativeList(navController: NavHostController){
+    val homedata = listOf(
+        homedataobject(R.drawable.image_1, NavigationItem.Exposcience.route, "EXPOSCIENCE"),
+        homedataobject(R.drawable.image_2, NavigationItem.MmLive.route, "35MM LIVE"),
+        homedataobject(R.drawable.image_3, NavigationItem.PassionWithReels.route, "PASSION WITH REELS"),
+    )
+    LazyVerticalGrid(cells = GridCells.Fixed(1)) {
 
-    LazyColumn(
-        modifier = Modifier.padding(10.dp)
-    ) {
-        item{
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.Exposcience.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_1
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "EXPOSCIENCE",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-
-            Spacer(Modifier.size(20.dp))
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.MmLive.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_2
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "35MM LIVE",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-
-            Spacer(Modifier.size(20.dp))
-            Box(
-                modifier = Modifier
-
-                    .clip(RoundedCornerShape(30.dp))
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .clickable {
-                        navController.navigate(NavigationItem.PassionWithReels.route)
-                    }
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.image_1
-                    ), contentDescription = "Null"
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(color = Color.Gray)
-                        .fillMaxWidth()
-                ) {
-
-                    Text(
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        text = "PASSION WITH REELS",
-                        fontSize = 26.sp
-
-                    )
-                    Spacer(Modifier.size(20.dp))
-
-                }
-            }
-
+        items(homedata) { data ->
+            HomeItem(data, navController)
 
         }
-
     }
 }
+
 
 
 @Composable
@@ -2103,8 +1297,6 @@ fun Navigation(navController: NavHostController){
         composable(NavigationItem.IdeaPresentation.route){
             IdeaPresentation(navController)
         }
-
-
 
 
 
